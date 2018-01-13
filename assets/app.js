@@ -71,13 +71,19 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   // Format the train start
 /*  var nextArrivalFormat = moment.unix(tbd).format("HH:mm");/*
 */
-    var nextArrival = 77
+  var firstArrival = moment(firstTrain,"HH:mm");
+  console.log('first arrival', firstArrival)
+  var nextArrival = firstArrival.add(frequency, 'minutes').format("HH:mm");
+  console.log('next arrival', nextArrival);
 /*  // Calculate the next arrival
   var nextArrival = moment().diff(moment.unix(trainStart, "X"), "months");
   console.log(tbd);*/
 
   // Calculate the minutes away
-  var minutesAway = 100-1;
+  var now = moment().format("HH:mm");
+  console.log(now)
+  var minutesAway = moment(nextArrival).subtract(now).format("HH:mm");
+  console.log('minutes away', minutesAway);
 /*  console.log(tbd);*/
 
   // Add each train's data into the table
