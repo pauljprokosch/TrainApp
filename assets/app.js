@@ -72,6 +72,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 /*  var nextArrivalFormat = moment.unix(tbd).format("HH:mm");/*
 */
   var firstArrival = moment(firstTrain,"HH:mm");
+/*  var firstArrival = moment(firstTrain).format("HH:mm");*/
   console.log('first arrival', firstArrival)
   var nextArrival = firstArrival.add(frequency, 'minutes').format("HH:mm");
   console.log('next arrival', nextArrival);
@@ -80,12 +81,12 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   console.log(tbd);*/
 
   // Calculate the minutes away
-  var now = moment().format("HH:mm");
-  console.log(now)
-  var minutesAway = moment(nextArrival).subtract(now).format("HH:mm");
+  /*var now = moment().format("HH:mm");*/
+  var now = moment();
+  console.log("Current time", now);
+/*  var minutesAway = moment(nextArrival).subtract(now).format("HH:mm");*/
+  var minutesAway = moment().diff(nextArrival,'minutes');
   console.log('minutes away', minutesAway);
-/*  console.log(tbd);*/
-
   // Add each train's data into the table
   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
   frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
